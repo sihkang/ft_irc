@@ -3,6 +3,7 @@ Internet Relay Chat server.
 Team project (2 people)
 
 IRC 서버에 대한 이해, 네트워크, I/O 멀티플렉싱 등 이해하고자 진행한 프로젝트입니다.
+
 ---
 
 ## 프로젝트 소개
