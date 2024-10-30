@@ -14,6 +14,7 @@ IRC 서버에 대한 이해, 네트워크, I/O 멀티플렉싱 등 이해하고�
 
 ### 팀 구성
 `dokoh` : 소켓 연결 구현
+
 `sihkang` : 프로토콜에 맞는 서버 - 클라이언트 간 메시지 응답 처리
 			커맨드 구현 (invite, kick, mode, privmsg, quit, topic 등)
 
@@ -33,5 +34,5 @@ RFC2812: https://datatracker.ietf.org/doc/html/rfc2812
 해당 RFC 문서를 참조하여 구현.
 
 ---
-## flowChart
+## simple flowChart
 ![Alt text](./images/flowchart.png)
