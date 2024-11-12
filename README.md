@@ -64,11 +64,18 @@ irssi -c host.docker.internal -p <Port> -n <Nickname> --password <PASSWORD>
 ## 리팩토링
 
 1. write/read -> send/recv 함수로 교체
-소켓 프로그래밍에 좀 더 알맞은 입출력 함수로 변경해보았음.
-플래그설정을 통해 메시지 처리에 대한 옵션이 많지만, fcntl을 통해 미리 설정한 후 진행하였으므로 별도의 플래그를 사용하지는 않았음.
 
+기존 : 소켓 데이터 송수신에 `write / read` 사용
+변경 : `send / recv` 함수로 교체
 
+소켓 프로그래밍에 좀 더 알맞은 입출력 함수로 변경.
+변경을 통해 데이터 송수신 시 원하는 플래그 세팅이 가능하다.
+
+기본적인 non-blocking 등 옵션은 fcntl을 통해 미리 설정한 후 진행하였음
+
+2.
 
 ---
+
 ## simple flowChart
 ![Alt text](./images/flowchart.png)
