@@ -148,8 +148,9 @@ void IRCServer::message_handling(int client_fd)
 {
     char buffer[BUFFER_SIZE]; // 버퍼를 선언하고 초기화합니다
     std::memset(buffer, 0, BUFFER_SIZE); // 버퍼를 0으로 초기화합니다.
-    int nread = read(client_fd, buffer, BUFFER_SIZE); // 클라이언트 소켓으로부터 데이터를 읽음
-    if (nread == -1)
+    // int nread = read(client_fd, buffer, BUFFER_SIZE); // 클라이언트 소켓으로부터 데이터를 읽음
+	int nread = recv(client_fd, buffer, BUFFER_SIZE, 0);
+	if (nread == -1)
     {
         std::cerr << "read error" << std::endl;
 		Response::QUIT(client_fd, this->serverinfo); // added by sihwan
