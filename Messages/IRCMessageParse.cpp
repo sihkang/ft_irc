@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 16:27:19 by sihkang           #+#    #+#             */
-/*   Updated: 2024/06/27 19:18:34 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/11/18 11:12:40 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,3 @@ void IRCServer::IRCMessageParse(std::string message)
 		}
 	}
 }
-
-// 닉네임 중복검사, 유효한 캐릭터로 구성되었는지.
