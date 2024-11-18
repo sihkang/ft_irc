@@ -1,5 +1,5 @@
 NAME = Ircserv
-CPPFLAGS = -Werror -Wall -Wextra -std=c++98 -MMD -MP
+CPPFLAGS =-std=c++17 -MMD -MP
 
 SRCNAME = main FDMatcher IRCServer Messages/IRCMessageParse Messages/ServerMessage Messages/tools Messages/Response Messages/rpl command/cmd_topic command/cmd_privmsg command/cmd_mode command/cmd_invite command/cmd_kick command/cmd_quit
 SRC     = $(addsuffix .cpp, $(SRCNAME))
