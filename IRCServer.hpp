@@ -16,10 +16,11 @@
 #include <signal.h>
 #include <exception>
 #include <sstream>
+#include <memory>
 
 #include "Messages/Response.hpp"
 
-#define BUFFER_SIZE 512 // 버퍼 크기를 512 바이트로 정의
+#define BUFFER_SIZE 512
 
 # define MODE_i 0
 # define MODE_t 1
@@ -39,11 +40,8 @@ struct Channel
 	std::string key;
 	std::list<User> operator_user;
 	int user_limit;
-	// 채널모드 변수 필요
-	
 	bool opt[5]; // itkol
 	std::string createdTime;
-
 	std::list<struct User> channelUser;
 } ;
 
@@ -75,39 +73,46 @@ struct IRCMessage
 struct serverInfo
 {
 	std::string serverName;
-	std::string server_pwd; // 서버 연결 비밀번호
+	std::string server_pwd;
 	std::string serverCreatedTime;
-
-	std::list<User> usersInServer; // 서버에 등록된 유저
-	std::list<Channel> channelInServer; // 서버에 존재하는 채널
+	std::list<User> usersInServer; 
+	std::list<Channel> channelInServer; 
 
 };
 
 class IRCServer : public std::exception
 {
 	public:
-		IRCServer(const char* port, const char* password); //서버 초기화(생성자)
-		virtual ~IRCServer() throw(); //소멸자
-		void run(); //서버의 메인 루프를 실행
-	private:
-		serverInfo serverinfo;
-		std::string serverName;
-		int create_bind(const char* port); // 소캣을 생성 및 포트에 바인딩
-		void non_blocking(int cfd); // 소켓을 논블로킹 모드로 설정
-		void connection_handling(); //새 클라이언트 연결을 처리
-		void message_handling(int client_fd); // 클라이언트로부터의 메시지를 처리
-		void client_remove(int client_fd); // 클라이언트를 제거
-		int listen_fd; // listen 소켓 파일 디스크립터
-		std::string server_pwd; // 서버 연결 비밀번호
-		std::vector<struct pollfd> poll_fd; // 폴링할 파일 디스크립터 목록 
+		static IRCServer& getServer(const char* port, const char* password);
+		~IRCServer() throw();
+		void run();
 
-		//struct pollfd는 구조체는 readme에 설명이 있음
+	private:
+		IRCServer();
+		IRCServer(const char* port, const char* password);
+
+		serverInfo serverinfo;
+
+		int createBind(const char* port);
+		void setNonblocking(int cfd);
+		void connection_handling();
+		void messageHandling(int client_fd);
+		void client_remove(int client_fd);
+
+		int listen_fd;
+		std::string server_pwd;
+		std::vector<struct pollfd> poll_fd;
+
 		std::map<int, std::string> client_buffers;
-		std::map<int, std::string> temp_message; // 클라이언트 별로 수신된 데이터 버퍼를 저장
+		std::map<int, std::string> temp_message;
 
 		// in IRCMessageParse.cpp
 		void IRCMessageParse(std::string message);
 		IRCMessage parsedMessage;
+
+		IRCServer(const IRCServer&) = delete;
+		IRCServer& operator=(const IRCServer&) = delete;
+
 };
 
 #endif
